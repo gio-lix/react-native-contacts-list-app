@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./styles";
 import { Text, Image, View, TouchableOpacity } from "react-native";
 import Input from "../common/Input";
@@ -7,8 +6,11 @@ import Container from "../common/Container";
 import { useNavigation } from "@react-navigation/native";
 import { ROUTES } from "../../constants";
 
-const LoginComponents = () => {
-  const {navigate} = useNavigation();
+const LoginComponents = ({onSubmit, form, onChange}) => {
+  const { navigate } = useNavigation();
+
+
+
   return (
     <Container>
       <Image
@@ -19,20 +21,38 @@ const LoginComponents = () => {
       <View>
         <Text style={styles.title}>Welcome to you user.</Text>
         <Text style={styles.subTitle}>Please Login.</Text>
+        {/*<Message*/}
+        {/*  retry*/}
+        {/*  retryFn={() => {*/}
+        {/*    console.log("333",333);*/}
+        {/*  }}*/}
+        {/*  primary*/}
+        {/*  onDismiss={() => {}}*/}
+        {/*  message="Invalid credentials."*/}
+        {/*/>*/}
         <View style={styles.form}>
           <Input
             label="Username"
             placeHolder="Enter Username"
+            value={form.username || null}
+            onChangeText={(value) => {
+              onChange({name: "username", value});
+            }}
           />
           <Input
             icon={<Text>Show</Text>}
             placeHolder="Enter Password"
             label="Password"
             secureTextEntry={true}
+            value={form.password || null}
+            onChangeText={(value) => {
+              onChange({name: "password", value});
+            }}
           />
           <CustomButton
             title="Submit"
             primary
+            handlePress={onSubmit}
           />
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Need a new account?</Text>
